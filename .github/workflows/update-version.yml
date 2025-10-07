@@ -53,7 +53,7 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           base: main
-          head: ${{ steps.create_branch.outputs.branch_name }}
+          branch: ${{ steps.create_branch.outputs.branch_name }}
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           body: |
             This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
