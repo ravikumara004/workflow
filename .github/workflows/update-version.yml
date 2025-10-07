@@ -1,0 +1,34 @@
+name: Update Version File
+
+on:
+  workflow_call:
+    inputs:
+      application:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update version in file
+        run: |
+          echo "Updating version for ${{ inputs.application }} to ${{ inputs.version }}"
+          # Example file: app-config.yaml
+          sed -i "s/^version:.*/version: \"${{ inputs.version }}\"/" app-config.yaml
+          cat app-config.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add app-config.yaml
+          git commit -m "Update version to ${{ inputs.version }} for ${{ inputs.application }}"
+          git push
