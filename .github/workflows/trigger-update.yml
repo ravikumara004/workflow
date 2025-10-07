@@ -1,0 +1,20 @@
+name: Trigger Version Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      application:
+        description: "Application environment name"
+        required: true
+        default: "staging"
+      version:
+        description: "Version number"
+        required: true
+        default: "1.0.0"
+
+jobs:
+  call-version-update:
+    uses: ./.github/workflows/update-version.yml
+    with:
+      application: ${{ inputs.application }}
+      version: ${{ inputs.version }}
