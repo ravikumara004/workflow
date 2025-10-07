@@ -38,9 +38,12 @@ jobs:
           cat app-config.yaml
 
       - name: Commit and push changes
+        env:
+          TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
           git config user.name "ravikumara004"
           git config user.email "ravikj004@gmail.com"
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
           git add app-config.yaml
           git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           git push origin ${{ steps.create_branch.outputs.branch_name }}
@@ -48,7 +51,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_PAT }}
           base: main
           head: ${{ steps.create_branch.outputs.branch_name }}
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
