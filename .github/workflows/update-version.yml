@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: fun
           fetch-depth: 0  # Needed to create a new branch from main
       - name: ls before
         run: |
