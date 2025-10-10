@@ -66,7 +66,7 @@ jobs:
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           branch: "fun" #${{ steps.create_branch.outputs.branch_name }}
-          author: "ravikumara004"
+          author: "ravikj004@gmail.com"
           committer: "ravikj004@gmail.com"
           body: |
             This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
