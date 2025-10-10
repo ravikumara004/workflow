@@ -46,25 +46,36 @@ jobs:
           echo "Updated file content:"
           cat app-config.yaml
 
-      - name: Commit and push changes
+      - name: user.name user.email
         env:
           TOKEN: ${{ secrets.WORKFLOW_PAT }}
         run: |
           git config user.name "ravikumara004"
           git config user.email "ravikj004@gmail.com"
-          #git remote set-url origin https://ravikumara004:${TOKEN}@github.com/ravikumara004/workflow.git
-          git add .
-          git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          git push origin ${{ steps.create_branch.outputs.branch_name }} -f
-          git branch
-          cat app-config.yaml
+          # #git remote set-url origin https://ravikumara004:${TOKEN}@github.com/ravikumara004/workflow.git
+          # git add .
+          # git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
+          # git push origin ${{ steps.create_branch.outputs.branch_name }} -f
+          # git branch
+          # cat app-config.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           base: main
-          branch: ${{ steps.create_branch.outputs.branch_name }}
+          branch: "update-${{ inputs.application }}-${{ inputs.version }}-${{ github.run_number }}"
+          commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           body: |
             This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
+
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v6
+      #   with:
+      #     token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+      #     base: main
+      #     branch: ${{ steps.create_branch.outputs.branch_name }}
+      #     title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
+      #     body: |
+      #       This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
