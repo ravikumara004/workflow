@@ -49,7 +49,6 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
-          base: fun
           branch: ${{ steps.create_branch.outputs.branch_name }}
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
