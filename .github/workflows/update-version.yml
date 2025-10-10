@@ -20,6 +20,9 @@ jobs:
         with:
           ref: main
           fetch-depth: 0  # Needed to create a new branch from main
+      - name: ls before
+        run: |
+          ls -l
 
       - name: Create and switch to new branch
         id: create_branch
@@ -28,6 +31,10 @@ jobs:
           echo "Creating new branch: $BRANCH_NAME"
           git checkout -b "$BRANCH_NAME"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: ls after
+        run: |
+          ls -l
 
       - name: Update version in app-config.yaml
         run: |
