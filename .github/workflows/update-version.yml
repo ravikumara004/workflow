@@ -23,6 +23,7 @@ jobs:
       - name: ls before
         run: |
           ls -l
+          cat app-config.yaml
 
       - name: Create and switch to new branch
         id: create_branch
@@ -35,6 +36,7 @@ jobs:
       - name: ls after
         run: |
           ls -l
+          cat app-config.yaml
 
       - name: Update version in app-config.yaml
         run: |
@@ -54,6 +56,8 @@ jobs:
           git add app-config.yaml
           git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           git push origin ${{ steps.create_branch.outputs.branch_name }} -f
+          git branch
+          cat app-config.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
