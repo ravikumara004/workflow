@@ -59,21 +59,44 @@ jobs:
           git branch
           cat app-config.yaml
 
-      - name: user.name user.email
+      # - name: user.name user.email
+      #   env:
+      #     TOKEN: ${{ secrets.WORKFLOW_PAT }}
+      #   run: |
+      #     curl -X POST \
+      #       -H "Authorization: token $TOKEN" \
+      #       -H "Accept: application/vnd.github+json" \
+      #       https://api.github.com/repos/ravikumara004/workflow/pulls \
+      #       -d '{
+      #         "title": "Update container version to '${{ inputs.version }}' for '${{ inputs.application }}'",
+      #         "head": "${{ steps.create_branch.outputs.branch_name }}",
+      #         "base": "fun",
+      #         "body": "This PR updates the container version in `app-config.yaml` to `'${{ inputs.version }}'` for application `'${{ inputs.application }}'`."
+      #       }'
+
+      - name: Create Pull Request via GitHub API
         env:
           TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          OWNER: ravikumara004
+          REPO: workflow
+          VERSION: ${{ inputs.version }}
+          APP: ${{ inputs.application }}
+          RUN_ID: ${{ github.run_number }}
         run: |
-          curl -X POST \
-            -H "Authorization: token $TOKEN" \
+          echo "Creating PR from feature/update-${APP}-${VERSION}-${RUN_ID} to fun..."
+          curl -s -o response.json -w "%{http_code}" -X POST \
+            -H "Authorization: token ${TOKEN}" \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/ravikumara004/workflow/pulls \
-            -d '{
-              "title": "Update container version to '${{ inputs.version }}' for '${{ inputs.application }}'",
-              "head": "${{ steps.create_branch.outputs.branch_name }}",
-              "base": "fun",
-              "body": "This PR updates the container version in `app-config.yaml` to `'${{ inputs.version }}'` for application `'${{ inputs.application }}'`."
-            }'
-
+            https://api.github.com/repos/${OWNER}/${REPO}/pulls \
+            -d "{
+              \"title\": \"Update container version to ${VERSION} for ${APP}\",
+              \"head\": \"feature/update-${APP}-${VERSION}-${RUN_ID}\",
+              \"base\": \"fun\",
+              \"body\": \"This PR updates the container version in app-config.yaml to ${VERSION} for application ${APP}.\"
+            }"
+      
+          echo "Response:"
+          cat response.json
 
       # - name: Create Pull Request
       #   uses: peter-evans/create-pull-request@v7
