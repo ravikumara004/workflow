@@ -65,7 +65,7 @@ jobs:
           token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          branch: ${{ steps.create_branch.outputs.branch_name }}
+          branch: "fun" #${{ steps.create_branch.outputs.branch_name }}
           author: "ravikumara004"
           committer: "ravikj004@gmail.com"
           body: |
