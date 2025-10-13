@@ -55,15 +55,15 @@ jobs:
             https://api.github.com/repos/ravikumara004/workflow/pulls \
             -d '{"title":"Amazing new feature","body":"Please pull these awesome changes in!","head":"${{ steps.create_branch.outputs.branch_name }}","base":"main"}'
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.WORKFLOW_PAT != '' && secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
-          base: main
-          branch: ${{ steps.create_branch.outputs.branch_name }}
-          commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          author: "Ravi Kumar <ravikj004@gmail.com>"
-          committer: "Ravi Kumar <ravikj004@gmail.com>"
-          body: |
-            This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v7
+      #   with:
+      #     token: ${{ secrets.WORKFLOW_PAT != '' && secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+      #     base: main
+      #     branch: ${{ steps.create_branch.outputs.branch_name }}
+      #     commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
+      #     title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
+      #     author: "Ravi Kumar <ravikj004@gmail.com>"
+      #     committer: "Ravi Kumar <ravikj004@gmail.com>"
+      #     body: |
+      #       This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
