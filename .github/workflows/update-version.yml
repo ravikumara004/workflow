@@ -51,4 +51,3 @@ jobs:
           committer: "Ravi Kumar <ravikj004@gmail.com>"
           body: |
             This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
-          fail-on-error: true
