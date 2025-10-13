@@ -41,16 +41,16 @@ jobs:
           echo "Updated file content:"
           cat app-config.yaml
 
-      - name: Push new branch
-        run: |
-          git config user.name "ravikumara004"
-          git config user.email "ravikj004@gmail.com"
-          #git remote set-url origin https://ravikumara004:${TOKEN}@github.com/ravikumara004/workflow.git
-          git add app-config.yaml
-          git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          git push origin ${{ steps.create_branch.outputs.branch_name }} -f
-          git branch
-          cat app-config.yaml
+      # - name: Push new branch
+      #   run: |
+      #     git config user.name "ravikumara004"
+      #     git config user.email "ravikj004@gmail.com"
+      #     #git remote set-url origin https://ravikumara004:${TOKEN}@github.com/ravikumara004/workflow.git
+      #     git add app-config.yaml
+      #     git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
+      #     git push origin ${{ steps.create_branch.outputs.branch_name }} -f
+      #     git branch
+      #     cat app-config.yaml
 
       - name: Push new branch
         run: |
