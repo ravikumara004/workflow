@@ -34,6 +34,7 @@ jobs:
       - name: Update version in app-config.yaml
         run: |
           echo "Updating container.version to ${{ inputs.version }} for application ${{ inputs.application }}"
+          #sudo apt-get update && sudo apt-get install -y yq
           yq -i '.container.version = "${{ inputs.version }}"' app-config.yaml
           echo "Updated file content:"
           cat app-config.yaml
