@@ -70,7 +70,7 @@ jobs:
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.token1 }}
-          approvers: ravikumara004
+          #approvers: ravikumara004
           minimum-approvals: 1
           issue-title: "Approval needed for merging PR #${{ steps.create_pr.outputs.pr_number }}"
           issue-body: "Please approve to proceed with merge and delete branch for version ${{ inputs.version }}. https://github.com/ravikumara004/workflow/pull/${{ steps.create_pr.outputs.pr_number }}"
