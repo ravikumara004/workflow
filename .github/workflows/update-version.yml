@@ -21,8 +21,8 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Install yq
-        run: sudo apt-get update && sudo apt-get install -y yq
+      # - name: Install yq
+      #   run: sudo apt-get update && sudo apt-get install -y yq
 
       - name: Create and switch to feature branch
         id: create_branch
