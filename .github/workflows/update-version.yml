@@ -43,6 +43,8 @@ jobs:
 
       - name: Push new branch
         run: |
+          git add .
+          git commit -m "testing"
           git push origin ${{ steps.create_branch.outputs.branch_name }}
 
       - name: Push new branch
