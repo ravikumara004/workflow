@@ -45,6 +45,12 @@ jobs:
         run: |
           git push origin ${{ steps.create_branch.outputs.branch_name }}
 
+      - name: Push new branch
+        run: |
+          ls -l
+          git status
+          git branch
+
       - name: PR
         run: |
           curl -L \
