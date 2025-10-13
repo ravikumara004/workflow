@@ -22,4 +22,4 @@ jobs:
       application: ${{ inputs.application }}
       version: ${{ inputs.version }}
     secrets:
-      token1: ${{ secrets.WF_TOKEN }}
+      token1: ${{ secrets.MY_TOKEN }}
