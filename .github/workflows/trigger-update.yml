@@ -21,3 +21,5 @@ jobs:
     with:
       application: ${{ inputs.application }}
       version: ${{ inputs.version }}
+    secrets:
+      token1: ${{ secrets.WF_TOKEN }}
