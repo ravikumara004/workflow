@@ -39,6 +39,10 @@ jobs:
           echo "Updated file content:"
           cat app-config.yaml
 
+      - name: Push new branch
+        run: |
+          git push origin ${{ steps.create_branch.outputs.branch_name }}
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
