@@ -19,7 +19,7 @@ jobs:
       - name: Checkout base branch
         uses: actions/checkout@v4
         with:
-          ref: fun
+          ref: main
           fetch-depth: 0
 
       - name: Create and switch to feature branch
@@ -48,7 +48,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
-          base: fun
+          base: main
           branch: ${{ steps.create_branch.outputs.branch_name }}
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
