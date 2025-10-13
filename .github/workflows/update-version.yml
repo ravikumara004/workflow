@@ -11,7 +11,6 @@ on:
         type: string
 
 
-
 jobs:
   create-pr:
     runs-on: ubuntu-latest
@@ -21,6 +20,9 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - name: Install yq
+        run: sudo apt-get update && sudo apt-get install -y yq
 
       - name: Create and switch to feature branch
         id: create_branch
@@ -36,18 +38,10 @@ jobs:
           echo "Updated file content:"
           cat app-config.yaml
 
-      - name: Commit changes
-        run: |
-          git config user.name "Ravi Kumar"
-          git config user.email "ravikj004@gmail.com"
-          git add app-config.yaml
-          git commit -m "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
-          git push origin ${{ steps.create_branch.outputs.branch_name }} -f
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.WORKFLOW_PAT != '' && secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ steps.create_branch.outputs.branch_name }}
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
@@ -56,4 +50,4 @@ jobs:
           committer: "Ravi Kumar <ravikj004@gmail.com>"
           body: |
             This PR updates the container version in `app-config.yaml` to `${{ inputs.version }}` for application `${{ inputs.application }}`.
-
+          fail-on-error: true
