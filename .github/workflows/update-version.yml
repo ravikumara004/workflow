@@ -66,30 +66,39 @@ jobs:
           PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
 
-      - name: Wait for PR Approval
-        if: ${{ steps.create_pr.outputs.pr_number != '' }}
-        run: |
-          echo "Waiting for approval on PR #${{ steps.create_pr.outputs.pr_number }}..."
-          APPROVED="false"
-          for i in {1..60}; do
-            REVIEWS=$(curl -s -H "Authorization: Bearer ${{ secrets.token1 }}" \
-              -H "Accept: application/vnd.github+json" \
-              https://api.github.com/repos/ravikumara004/workflow/pulls/${{ steps.create_pr.outputs.pr_number }}/reviews)
+      - name: Wait for Manual Approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.token1 }}
+          approvers: ravikumara004
+          minimum-approvals: 1
+          issue-title: "Approval needed for merging PR #${{ steps.create_pr.outputs.pr_number }}"
+          issue-body: "Please approve to proceed with merge and delete branch for version ${{ inputs.version }}. https://github.com/ravikumara004/workflow/pull/${{ steps.create_pr.outputs.pr_number }}"
 
-            if echo "$REVIEWS" | jq -e '.[] | select(.state == "APPROVED")' > /dev/null; then
-              echo "✅ PR approved!"
-              APPROVED="true"
-              break
-            else
-              echo "Still waiting for approval... (check $i/60)"
-              sleep 30
-            fi
-          done
+      # - name: Wait for PR Approval
+      #   if: ${{ steps.create_pr.outputs.pr_number != '' }}
+      #   run: |
+      #     echo "Waiting for approval on PR #${{ steps.create_pr.outputs.pr_number }}..."
+      #     APPROVED="false"
+      #     for i in {1..60}; do
+      #       REVIEWS=$(curl -s -H "Authorization: Bearer ${{ secrets.token1 }}" \
+      #         -H "Accept: application/vnd.github+json" \
+      #         https://api.github.com/repos/ravikumara004/workflow/pulls/${{ steps.create_pr.outputs.pr_number }}/reviews)
 
-          if [ "$APPROVED" != "true" ]; then
-            echo "❌ PR not approved within waiting period (30 mins). Exiting."
-            exit 1
-          fi
+      #       if echo "$REVIEWS" | jq -e '.[] | select(.state == "APPROVED")' > /dev/null; then
+      #         echo "✅ PR approved!"
+      #         APPROVED="true"
+      #         break
+      #       else
+      #         echo "Still waiting for approval... (check $i/60)"
+      #         sleep 30
+      #       fi
+      #     done
+
+      #     if [ "$APPROVED" != "true" ]; then
+      #       echo "❌ PR not approved within waiting period (30 mins). Exiting."
+      #       exit 1
+      #     fi
 
       - name: Merge Pull Request
         if: ${{ steps.create_pr.outputs.pr_number != '' }}
