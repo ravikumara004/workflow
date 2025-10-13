@@ -72,7 +72,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.token1 }}
-          base: main
+          base: fun
           branch: ${{ steps.create_branch.outputs.branch_name }}
           commit-message: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
           title: "Update container version to ${{ inputs.version }} for ${{ inputs.application }}"
