@@ -16,6 +16,13 @@ permissions:
   pull-requests: write
 
 jobs:
+  printinputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inputs
+        run: |
+          echo "${{ github.event.inputs.application }}"
+          echo "${{ github.event.inputs.version }}"
   call-version-update:
     uses: ./.github/workflows/update-version.yml
     with:
