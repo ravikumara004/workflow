@@ -1,0 +1,77 @@
+ 806  mkdir release
+  807  cd release/
+  808  ls
+  809  git clone https://github.com/ravikumara004/workflow.git
+  810  ls
+  811  cd workflow/
+  812  ls
+  813  ls -al
+  814  npm init -y
+  815  sudo apt install npm
+  816  npm -v
+  817  node -v
+  818  ls -al
+  819  npm init -y
+  820  ls
+  821  ls -al
+  822  cd .github/
+  823  ls
+  824  cd workflows/
+  825  ls
+  826  cat update-version.yml
+  827  ls
+  828  cd ..
+  829  cd..
+  830  cd ..
+  831  ls
+  832  npm install --save-dev semantic-release   @semantic-release/commit-analyzer   @semantic-release/release-notes-generator   @semantic-release/changelog   @semantic-release/git   @semantic-release/github
+  833  ls
+  834  nano .releaserc.json
+  835  nano CHANGELOG.md
+  836  nano .github/workflows/release.yml
+  837  cat .github/workflows/release.yml
+  838  git add .
+  839  git commit -m "feat: initial semantic release setup"
+  840  git push origin main
+  841  it status
+  842  git status
+  843  git push
+  844  ls
+  845  ls -al
+  846  cd .github/workflows/
+  847  ls
+  848  nano release.yml
+  849  git add .
+  850  git commit -m "feat: initial semantic release setup"
+  851  git push
+  852  npm -v
+  853  sudo apt remove -y nodejs npm
+  854  sudo apt autoremove -y
+  855  npm -v
+  856  ls
+  857  cd ..
+  858  ls
+  859  cat package.json
+  860  ls
+  861  cat package-lock.json
+  862  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  863  source ~/.bashrc
+  864  nvm --version
+  865  nvm install 22
+  866  nvm use 22
+  867  npm -v
+  868  node -v
+  869  rm -rf node_modules package-lock.json
+  870  ls
+  871  npm install
+  872  ls
+  873  cat package-lock.json
+  874  git add .
+  875  git commit -m "fix: test"
+  876  git push
+  877  nano .github/workflows/release.yml
+  878  cat .github/workflows/release.yml
+  879  git add .
+  880  git commit -m "fix: test"
+  881  git push
+  882  history
