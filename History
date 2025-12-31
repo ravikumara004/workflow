@@ -1,4 +1,4 @@
- 806  mkdir release #
+ 806  mkdir release
   807  cd release/
   808  ls
   809  git clone https://github.com/ravikumara004/workflow.git
